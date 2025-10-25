@@ -1,5 +1,4 @@
 // LoginScreen.jsx
-
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet } from "react-native";
 import { login } from "../services/api";
@@ -21,7 +20,7 @@ export default function LoginScreen({ navigation }) {
     const handleLogin = async () => {
         console.log("Iniciando o processo de login...");
         try {
-            const data = await login(usuario, senha);
+            const data = await login(username, password);
             console.log("Login bem-sucedido:", data);
             Alert.alert("Login bem-sucedido!");
             navigation.navigate("Home", { token: data.token });
@@ -34,6 +33,7 @@ export default function LoginScreen({ navigation }) {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Login</Text>
+
             <TextInput
                 style={styles.input}
                 placeholder="Nome de usuário"
@@ -44,6 +44,7 @@ export default function LoginScreen({ navigation }) {
                 keyboardType="email-address"
                 textContentType="username"
             />
+
             <TextInput
                 style={styles.input}
                 placeholder="Senha"
@@ -52,10 +53,15 @@ export default function LoginScreen({ navigation }) {
                 onChangeText={setPassword}
                 textContentType="password"
             />
+
             <TouchableOpacity style={styles.button} onPress={handleLogin}>
                 <Text style={styles.buttonText}>Entrar</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.button, styles.registerButton]} onPress={() => navigation.navigate("Register")}>
+
+            <TouchableOpacity
+                style={[styles.button, styles.registerButton]}
+                onPress={() => navigation.navigate("Register")}
+            >
                 <Text style={styles.buttonText}>Registrar</Text>
             </TouchableOpacity>
         </View>
